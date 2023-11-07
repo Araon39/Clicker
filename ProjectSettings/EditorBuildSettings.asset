@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Cliker2.unity
+    guid: 1399e2f21fb66ea40beb525677a1741c
   m_configObjects: {}
