@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using System; //для Serializable класса Save и для сохранения в JSON???
 public class ClikerScripts1 : MonoBehaviour
 {
     public int score;
@@ -14,9 +15,34 @@ public class ClikerScripts1 : MonoBehaviour
     private int clickScore = 1; //цена за клик
 
     public int[] costBonus;
+    
+    private Save _sv = new Save(); //создаем новый экземпляр класса
+
+    //загрузка сохранения на старте
+    private void Awake()
+    {
+        if (PlayerPrefs.HasKey("SV")) //проверяем есть ли такое сохранение
+        {
+            _sv = JsonUtility.FromJson<Save>(PlayerPrefs.GetString("SV")); //в экземпляр класа загружаем сохранение
+            score = _sv.score;
+            clickScore = _sv.clickScore;
+            //создаем цикл для записи данных в наши текущие переменные "бонусы" из сохранения
+            for (int i = 0; i < 1; i++)
+            {
+                costBonus[i] = _sv.costBonus[i];
+            }
+            //создаем цикл для записи данных в в наши текущие переменные "магазин" из сохранения
+            for (int i = 0; i < 2; i++)
+            {
+                costInt[i] = _sv.costInt[i];
+                costText[i].text = _sv.costInt[i] + "$"; //визуализируем это в текст
+            }
+        }
+    }
+
     void Start()
     {
-        score = 0;
+        //score = 0;
         StartCoroutine(BonusShop());
     }
 
@@ -75,6 +101,37 @@ public class ClikerScripts1 : MonoBehaviour
            score += costBonus[0];                  //прибавка цифры к счету
            yield return new WaitForSeconds(1);     //подождать 1 сек
         }
-        
     }
+
+    //метод сохранения данных в эдиторе - тот что нужно сохранить при заходе в игру
+    private void OnApplicationQuit()
+    {
+        _sv.score = score;
+        _sv.clickScore = clickScore;
+        
+        _sv.costBonus = new int[1]; //создаем массив размером в единицу так как для одного товара
+        _sv.costInt = new int[2]; //тут два товара
+        //создаем цикл для записи данных в бонусы
+        for (int i = 0; i < 1; i++)
+        {
+            _sv.costBonus[i] = costBonus[i];
+        }
+        //создаем цикл для записи данных в магазин
+        for (int i = 0; i < 2; i++)
+        {
+            _sv.costInt[i] = costInt[i];
+        }
+        //записываем все в Json???
+        PlayerPrefs.SetString("SV", JsonUtility.ToJson(_sv));
+    }
+}
+
+//создаем новый класс для переменых которые хотим сохранять
+[Serializable]
+public class Save 
+{
+    public int score;
+    public int clickScore;
+    public int[] costInt;
+    public int[] costBonus;
 }
