@@ -18,6 +18,8 @@ public class ClikerScripts1 : MonoBehaviour
     
     private Save _sv = new Save(); //создаем новый экземпляр класса
 
+    private int totalBonus; //переменая для подсчёта заработаных бонусов в офлайне
+
     //загрузка сохранения на старте
     private void Awake()
     {
@@ -30,6 +32,7 @@ public class ClikerScripts1 : MonoBehaviour
             for (int i = 0; i < 1; i++)
             {
                 costBonus[i] = _sv.costBonus[i];
+                totalBonus += _sv.costBonus[i]; //мы узнаем сколько заработали в отсутсвии в игре
             }
             //создаем цикл для записи данных в в наши текущие переменные "магазин" из сохранения
             for (int i = 0; i < 2; i++)
@@ -44,6 +47,15 @@ public class ClikerScripts1 : MonoBehaviour
     {
         //score = 0;
         StartCoroutine(BonusShop());
+        
+        //создаем переменую для времени и записываем в него последнее сохранение
+        DateTime dt = new DateTime(_sv.date[0],_sv.date[1],_sv.date[2],_sv.date[3],_sv.date[4],_sv.date[5]);
+        //переменная расчета разницы во времени от текущего с прошлым
+        TimeSpan ts = DateTime.Now - dt;
+
+        //расчет очков за время отсутствия в игре (глобальное время в секундах умноженое на множитель очков)
+        score += (int) ts.TotalSeconds * totalBonus;
+        print("Вы заработали: " + (int) ts.TotalSeconds * totalBonus + " $");
     }
 
     void Update()
@@ -102,8 +114,42 @@ public class ClikerScripts1 : MonoBehaviour
            yield return new WaitForSeconds(1);     //подождать 1 сек
         }
     }
+#if UNITY_ANDROID && !UNITY_EDITOR
+    //этот метод поможет нам сохраняться в телефоне после билда
+    //так как OnApplicationQuit сохраняет в эдиторе
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        if (pauseStatus)
+        {
+            _sv.score = score;
+            _sv.clickScore = clickScore;
+        
+            _sv.costBonus = new int[1]; //создаем массив размером в единицу так как для одного товара
+            _sv.costInt = new int[2]; //тут два товара
+            //создаем цикл для записи данных в бонусы
+            for (int i = 0; i < 1; i++)
+            {
+                _sv.costBonus[i] = costBonus[i];
+            }
+            //создаем цикл для записи данных в магазин
+            for (int i = 0; i < 2; i++)
+            {
+                _sv.costInt[i] = costInt[i];
+            }
 
-    //метод сохранения данных в эдиторе - тот что нужно сохранить при заходе в игру
+            _sv.date[0] = DateTime.Now.Year;
+            _sv.date[1] = DateTime.Now.Month;
+            _sv.date[2] = DateTime.Now.Day;
+            _sv.date[3] = DateTime.Now.Hour;
+            _sv.date[4] = DateTime.Now.Minute;
+            _sv.date[5] = DateTime.Now.Second;
+        
+            //записываем все в Json???
+            PlayerPrefs.SetString("SV", JsonUtility.ToJson(_sv));  
+        }
+    }
+#else
+    //метод сохранения данных в эдиторе - тот что нужно сохранить при выходе из игры
     private void OnApplicationQuit()
     {
         _sv.score = score;
@@ -121,9 +167,18 @@ public class ClikerScripts1 : MonoBehaviour
         {
             _sv.costInt[i] = costInt[i];
         }
+
+        _sv.date[0] = DateTime.Now.Year;
+        _sv.date[1] = DateTime.Now.Month;
+        _sv.date[2] = DateTime.Now.Day;
+        _sv.date[3] = DateTime.Now.Hour;
+        _sv.date[4] = DateTime.Now.Minute;
+        _sv.date[5] = DateTime.Now.Second;
+        
         //записываем все в Json???
         PlayerPrefs.SetString("SV", JsonUtility.ToJson(_sv));
     }
+#endif
 }
 
 //создаем новый класс для переменых которые хотим сохранять
@@ -134,4 +189,8 @@ public class Save
     public int clickScore;
     public int[] costInt;
     public int[] costBonus;
+    
+    //создаем массив временисо старта в 6 пустых ячеек
+    //для 1год 2месяц 3день 4час 5мин 6сек
+    public int[] date = new int[6]; 
 }
