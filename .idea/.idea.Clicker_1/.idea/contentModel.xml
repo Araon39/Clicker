@@ -11,7 +11,9 @@
         <e p="Scripts" t="Include">
           <e p="ClikerScripts.cs" t="Include" />
           <e p="ClikerScripts1.cs" t="Include" />
+          <e p="SoundControler.cs" t="Include" />
         </e>
+        <e p="Sound" t="Include" />
         <e p="Texture" t="Include" />
       </e>
       <e p="Clicker_1.sln" t="IncludeFlat" />

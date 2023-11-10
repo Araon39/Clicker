@@ -14,6 +14,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/ClikerScripts1.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/SoundControler.cs" />
       </list>
     </option>
   </component>
@@ -58,7 +59,8 @@
       <updated>1699300933360</updated>
       <workItem from="1699300945738" duration="663000" />
       <workItem from="1699359752995" duration="2418000" />
-      <workItem from="1699461303736" duration="5428000" />
+      <workItem from="1699461303736" duration="6209000" />
+      <workItem from="1699627180378" duration="857000" />
     </task>
     <servers />
   </component>

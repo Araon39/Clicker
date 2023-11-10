@@ -364,7 +364,7 @@ MonoBehaviour:
   click_Text: {fileID: 539628202}
   shopPan: {fileID: 1516234779}
   bonusPan: {fileID: 1162276612}
-  costInt: 64000000e8030000
+  costInt: 0a00000064000000
   costText:
   - {fileID: 1596920385}
   - {fileID: 1556338236}
