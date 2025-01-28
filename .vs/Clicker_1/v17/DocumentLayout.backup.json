@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\UnityProjects_GitHub\\Clicker_1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3626FBB3-1B5F-E0D7-8C2A-AEA8B1F33D02}|Assembly-CSharp.csproj|d:\\unityprojects_github\\clicker_1\\assets\\scripts\\soundcontroler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3626FBB3-1B5F-E0D7-8C2A-AEA8B1F33D02}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\soundcontroler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3626FBB3-1B5F-E0D7-8C2A-AEA8B1F33D02}|Assembly-CSharp.csproj|d:\\unityprojects_github\\clicker_1\\assets\\scripts\\clikerscripts1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3626FBB3-1B5F-E0D7-8C2A-AEA8B1F33D02}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\clikerscripts1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3626FBB3-1B5F-E0D7-8C2A-AEA8B1F33D02}|Assembly-CSharp.csproj|d:\\unityprojects_github\\clicker_1\\assets\\scripts\\clikerscripts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3626FBB3-1B5F-E0D7-8C2A-AEA8B1F33D02}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\clikerscripts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ClikerScripts.cs",
+              "DocumentMoniker": "D:\\UnityProjects_GitHub\\Clicker_1\\Assets\\Scripts\\ClikerScripts.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\ClikerScripts.cs",
+              "ToolTip": "D:\\UnityProjects_GitHub\\Clicker_1\\Assets\\Scripts\\ClikerScripts.cs",
+              "RelativeToolTip": "Assets\\Scripts\\ClikerScripts.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAqwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-28T14:12:17.937Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ClikerScripts1.cs",
+              "DocumentMoniker": "D:\\UnityProjects_GitHub\\Clicker_1\\Assets\\Scripts\\ClikerScripts1.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\ClikerScripts1.cs",
+              "ToolTip": "D:\\UnityProjects_GitHub\\Clicker_1\\Assets\\Scripts\\ClikerScripts1.cs",
+              "RelativeToolTip": "Assets\\Scripts\\ClikerScripts1.cs",
+              "ViewState": "AgIAAKsAAAAAAAAAAAAkwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-28T14:12:13.523Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SoundControler.cs",
+              "DocumentMoniker": "D:\\UnityProjects_GitHub\\Clicker_1\\Assets\\Scripts\\SoundControler.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\SoundControler.cs",
+              "ToolTip": "D:\\UnityProjects_GitHub\\Clicker_1\\Assets\\Scripts\\SoundControler.cs",
+              "RelativeToolTip": "Assets\\Scripts\\SoundControler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-28T14:12:09.87Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

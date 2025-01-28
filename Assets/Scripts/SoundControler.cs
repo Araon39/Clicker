@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class SoundControler : MonoBehaviour
 {
-    public AudioSource audio;
-    public AudioClip clickSound;
+    public AudioSource audio; // Переменная для хранения компонента AudioSource
+    public AudioClip clickSound; // Переменная для хранения звукового клипа для клика
+
     void Start()
     {
-        audio = GetComponent<AudioSource>();
+        audio = GetComponent<AudioSource>(); // Получение компонента AudioSource при старте
     }
 
     public void onButtonClickAudio()
     {
-        audio.PlayOneShot(clickSound);
+        audio.PlayOneShot(clickSound); // Воспроизведение звукового клипа при нажатии кнопки
     }
 }

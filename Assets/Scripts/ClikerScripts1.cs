@@ -4,165 +4,147 @@ using UnityEngine.UI;
 using System; //для Serializable класса Save и для сохранения в JSON???
 public class ClikerScripts1 : MonoBehaviour
 {
-    public int score;
-    public Text click_Text;
+    public int score; // Переменная для хранения текущего счета
+    public Text click_Text; // UI элемент для отображения счета
 
-    public GameObject shopPan;
-    public GameObject bonusPan;
+    public GameObject shopPan; // Панель магазина
+    public GameObject bonusPan; // Панель бонусов
 
-    public int[] costInt;       //что бы назначить цену товара
-    public Text[] costText;     //что бы видеть цену товара
-    private int clickScore = 1; //цена за клик
+    public int[] costInt; // Массив для хранения стоимости товаров
+    public Text[] costText; // Массив для отображения стоимости товаров
+    private int clickScore = 1; // Стоимость одного клика
 
-    public int[] costBonus;
-    
-    private Save _sv = new Save(); //создаем новый экземпляр класса
+    public int[] costBonus; // Массив для хранения стоимости бонусов
 
-    private int totalBonus; //переменая для подсчёта заработаных бонусов в офлайне
+    private Save _sv = new Save(); // Создание нового экземпляра класса Save
 
-    //загрузка сохранения на старте
+    private int totalBonus; // Переменная для подсчета заработанных бонусов в офлайне
+
+    // Загрузка сохранения на старте
     private void Awake()
     {
-        if (PlayerPrefs.HasKey("SV")) //проверяем есть ли такое сохранение
+        if (PlayerPrefs.HasKey("SV")) // Проверка наличия сохранения
         {
-            _sv = JsonUtility.FromJson<Save>(PlayerPrefs.GetString("SV")); //в экземпляр класа загружаем сохранение
+            _sv = JsonUtility.FromJson<Save>(PlayerPrefs.GetString("SV")); // Загрузка сохранения в экземпляр класса
             score = _sv.score;
             clickScore = _sv.clickScore;
-            //создаем цикл для записи данных в наши текущие переменные "бонусы" из сохранения
+            // Цикл для записи данных в текущие переменные "бонусы" из сохранения
             for (int i = 0; i < 1; i++)
             {
                 costBonus[i] = _sv.costBonus[i];
-                totalBonus += _sv.costBonus[i]; //мы узнаем сколько заработали в отсутсвии в игре
+                totalBonus += _sv.costBonus[i]; // Подсчет заработанных бонусов в офлайне
             }
-            //создаем цикл для записи данных в в наши текущие переменные "магазин" из сохранения
+            // Цикл для записи данных в текущие переменные "магазин" из сохранения
             for (int i = 0; i < 2; i++)
             {
                 costInt[i] = _sv.costInt[i];
-                costText[i].text = _sv.costInt[i] + "$"; //визуализируем это в текст
+                costText[i].text = _sv.costInt[i] + "$"; // Отображение стоимости товаров
             }
         }
     }
 
     void Start()
     {
-        //score = 0;
         StartCoroutine(BonusShop());
-        
-        //создаем переменую для времени и записываем в него последнее сохранение
-        DateTime dt = new DateTime(_sv.date[0],_sv.date[1],_sv.date[2],_sv.date[3],_sv.date[4],_sv.date[5]);
-        //переменная расчета разницы во времени от текущего с прошлым
+
+        // Создание переменной для времени и запись в нее последнего сохранения
+        DateTime dt = new DateTime(_sv.date[0], _sv.date[1], _sv.date[2], _sv.date[3], _sv.date[4], _sv.date[5]);
+        // Переменная для расчета разницы во времени между текущим и последним сохранением
         TimeSpan ts = DateTime.Now - dt;
 
-        //расчет очков за время отсутствия в игре (глобальное время в секундах умноженое на множитель очков)
-        score += (int) ts.TotalSeconds * totalBonus;
-        print("Вы заработали: " + (int) ts.TotalSeconds * totalBonus + " $");
+        // Расчет очков за время отсутствия в игре (глобальное время в секундах умноженное на множитель очков)
+        score += (int)ts.TotalSeconds * totalBonus;
+        print("Вы заработали: " + (int)ts.TotalSeconds * totalBonus + " $");
     }
 
     void Update()
     {
-    click_Text.text = score + "$";    //обновление картинки денег на главном экране         
+        click_Text.text = score + "$"; // Обновление текста UI элемента для отображения текущего счета
     }
 
-    //Монетка для клика
+    // Метод для увеличения счета при клике
     public void ScroreAdd()
     {
-        score+= clickScore;                                    
+        score += clickScore;
     }
-    
-    //вкл/выкл панель Магазина
+
+    // Включение/выключение панели магазина
     public void SopPanActivated()
     {
         shopPan.SetActive(!shopPan.activeSelf);
     }
-    
-    //вкл/выкл панель Бонуса
+
+    // Включение/выключение панели бонусов
     public void BonusPanActivated()
     {
         bonusPan.SetActive(!bonusPan.activeSelf);
     }
 
-    //покупка увеличения цены за клик
+    // Покупка увеличения стоимости за клик
     public void OnClickBuyLevel()
     {
-        if (score >= costInt[0])    //проверяем хватает ли денег
+        if (score >= costInt[0]) // Проверка наличия достаточного количества денег
         {
-            score -= costInt[0];    // вычитаем деньги (покупка)
-            costInt[0] *= 2;        //увеличиваем цену в 2 раза
-            clickScore *= 2;        //цена за клик увеличена в 2 раза
-            costText[0].text = costInt[0] + "$"; //обновляем текст товара
+            score -= costInt[0]; // Вычитание денег (покупка)
+            costInt[0] *= 2; // Увеличение стоимости в 2 раза
+            clickScore *= 2; // Увеличение стоимости за клик в 2 раза
+            costText[0].text = costInt[0] + "$"; // Обновление текста товара
         }
     }
-    
-    //покупка бонуса автокликера
+
+    // Покупка бонуса автокликера
     public void OnClickBuyBonus()
     {
-        if (score >= costInt[1])    //проверяем хватает ли денег
+        if (score >= costInt[1]) // Проверка наличия достаточного количества денег
         {
-            score -= costInt[1];    // вычитаем деньги (покупка)
-            costInt[1] *= 2;        //увеличиваем цену в 2 раза
-            costBonus[0] += 2;      //при покупке автокликер будет увеличивать на два
-            costText[1].text = costInt[1] + "$"; //обновляем текст товара
+            score -= costInt[1]; // Вычитание денег (покупка)
+            costInt[1] *= 2; // Увеличение стоимости в 2 раза
+            costBonus[0] += 2; // Увеличение бонуса автокликера на 2
+            costText[1].text = costInt[1] + "$"; // Обновление текста товара
         }
     }
 
-    //автоматически прибавляем деньги после улучшения
-    IEnumerator BonusShop() 
+    // Автоматическое добавление денег после улучшения
+    IEnumerator BonusShop()
     {
-        while (true) //бесконечно
+        while (true) // Бесконечный цикл
         {
-           score += costBonus[0];                  //прибавка цифры к счету
-           yield return new WaitForSeconds(1);     //подождать 1 сек
+            score += costBonus[0]; // Добавление бонуса к счету
+            yield return new WaitForSeconds(1); // Ожидание 1 секунду
         }
     }
+
 #if UNITY_ANDROID && !UNITY_EDITOR
-    //этот метод поможет нам сохраняться в телефоне после билда
-    //так как OnApplicationQuit сохраняет в эдиторе
-    private void OnApplicationPause(bool pauseStatus)
-    {
-        if (pauseStatus)
+        // Метод для сохранения данных на телефоне после билда
+        private void OnApplicationPause(bool pauseStatus)
         {
-            _sv.score = score;
-            _sv.clickScore = clickScore;
-        
-            _sv.costBonus = new int[1]; //создаем массив размером в единицу так как для одного товара
-            _sv.costInt = new int[2]; //тут два товара
-            //создаем цикл для записи данных в бонусы
-            for (int i = 0; i < 1; i++)
+            if (pauseStatus)
             {
-                _sv.costBonus[i] = costBonus[i];
+                SaveData();
             }
-            //создаем цикл для записи данных в магазин
-            for (int i = 0; i < 2; i++)
-            {
-                _sv.costInt[i] = costInt[i];
-            }
-
-            _sv.date[0] = DateTime.Now.Year;
-            _sv.date[1] = DateTime.Now.Month;
-            _sv.date[2] = DateTime.Now.Day;
-            _sv.date[3] = DateTime.Now.Hour;
-            _sv.date[4] = DateTime.Now.Minute;
-            _sv.date[5] = DateTime.Now.Second;
-        
-            //записываем все в Json???
-            PlayerPrefs.SetString("SV", JsonUtility.ToJson(_sv));  
         }
-    }
 #else
-    //метод сохранения данных в эдиторе - тот что нужно сохранить при выходе из игры
+    // Метод для сохранения данных в редакторе при выходе из игры
     private void OnApplicationQuit()
+    {
+        SaveData();
+    }
+#endif
+
+    // Метод для сохранения данных
+    private void SaveData()
     {
         _sv.score = score;
         _sv.clickScore = clickScore;
-        
-        _sv.costBonus = new int[1]; //создаем массив размером в единицу так как для одного товара
-        _sv.costInt = new int[2]; //тут два товара
-        //создаем цикл для записи данных в бонусы
+
+        _sv.costBonus = new int[1]; // Создание массива размером в единицу для одного товара
+        _sv.costInt = new int[2]; // Создание массива размером в два для двух товаров
+                                  // Цикл для записи данных в бонусы
         for (int i = 0; i < 1; i++)
         {
             _sv.costBonus[i] = costBonus[i];
         }
-        //создаем цикл для записи данных в магазин
+        // Цикл для записи данных в магазин
         for (int i = 0; i < 2; i++)
         {
             _sv.costInt[i] = costInt[i];
@@ -174,23 +156,21 @@ public class ClikerScripts1 : MonoBehaviour
         _sv.date[3] = DateTime.Now.Hour;
         _sv.date[4] = DateTime.Now.Minute;
         _sv.date[5] = DateTime.Now.Second;
-        
-        //записываем все в Json???
+
+        // Запись всех данных в JSON
         PlayerPrefs.SetString("SV", JsonUtility.ToJson(_sv));
     }
-#endif
 }
 
-//создаем новый класс для переменых которые хотим сохранять
+// Класс для переменных, которые нужно сохранять
 [Serializable]
-public class Save 
+public class Save
 {
     public int score;
     public int clickScore;
     public int[] costInt;
     public int[] costBonus;
-    
-    //создаем массив временисо старта в 6 пустых ячеек
-    //для 1год 2месяц 3день 4час 5мин 6сек
-    public int[] date = new int[6]; 
+
+    // Массив времени с 6 ячейками для года, месяца, дня, часа, минуты и секунды
+    public int[] date = new int[6];
 }
